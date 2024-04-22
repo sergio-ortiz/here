@@ -1,0 +1,21 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Your location</h1>
+		<p id="location"></p>
+	</body>
+	<script>
+		const locationElement = document.getElementById('location');
+		navigator.geolocation.getCurrentPosition((pos) =>  locationElement.textContent = `${pos.coords.latitude}, ${pos.coords.longitude}`);
+	</script>
+</html>
