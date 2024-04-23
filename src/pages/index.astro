@@ -1,21 +1,19 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Your location</h1>
-		<p id="location"></p>
-	</body>
+<BaseLayout>
+	<h1>Your location</h1>
+	<span id="replaceMe" aria-busy="true">Generating your link...</span>
 	<script>
-		const locationElement = document.getElementById('location');
-		navigator.geolocation.getCurrentPosition((pos) =>  locationElement.textContent = `${pos.coords.latitude}, ${pos.coords.longitude}`);
+		function success({ coords: { latitude, longitude} }) {
+			const link = document.createElement('a');
+			link.textContent = `${latitude}, ${longitude}`;
+			const href = `https://www.openstreetmap.org/search?query=${latitude},${longitude}`;
+			link.setAttribute('href', href);
+			const span = document.getElementById('replaceMe');
+			span.replaceWith(link);
+		};
+
+		navigator.geolocation.getCurrentPosition(success);
 	</script>
-</html>
+</BaseLayout>
