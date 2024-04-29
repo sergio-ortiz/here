@@ -1,6 +1,9 @@
 	<h1>Your location</h1>
 	<span aria-busy="{!location}">{ location ? location : 'Reverse geocoding...' }</span>
+
 	<script>
+		import { onMount } from 'svelte';
+
 		let location = '';
 
 		async function success({ coords: { latitude, longitude} }) {
@@ -10,5 +13,7 @@
 			location = reverseGeocode.display_name;
 		};
 
-		navigator.geolocation.getCurrentPosition(success);
+		onMount(() => {
+			navigator.geolocation.getCurrentPosition(success);
+		});
 	</script>
