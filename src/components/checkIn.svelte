@@ -3,7 +3,7 @@
 
 	let location = '';
 
-	async function success({ coords: { latitude, longitude} }) {
+	async function success({ coords: { latitude, longitude } }) {
 		const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=17`);
 		const reverseGeocode = await response.json();
 
@@ -18,8 +18,10 @@
 
 	let checking;
 
-	function checkIn() {
-		checking = true;
+	async function checkIn() {
+		const response = await fetch('/checkIn.json')
+		const data = await response.json();
+		checking = data.value;
 	}
 </script>
 
