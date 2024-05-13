@@ -16,25 +16,25 @@
 
 	import Location from './location.svelte';
 
-	let checking;
+	let authorized;
 
 	async function checkIn() {
 		const response = await fetch('/checkIn.json');
 		const data = await response.json();
-		checking = data.value;
+		authorized = data.value;
 	}
 
 	import SignIn from './signIn.svelte';
 
-	function signIn(data) {
-		checking = data.value;
+	function isAuthorized(data) {
+		authorized = data.value;
 	}
 </script>
 
-{#if checking === 'true'}
+{#if authorized === 'true'}
 	<Location location={location} />
-{:else if checking === 'false'}
-	<SignIn signIn={signIn} />
+{:else if authorized === 'false'}
+	<SignIn isAuthorized={isAuthorized} />
 {:else}
 	<h1>Press the Check-In button below</h1>
 	<button on:click={checkIn}>Check-In</button>

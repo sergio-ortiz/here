@@ -1,20 +1,26 @@
 <script>
-	export let signIn;
+	export let isAuthorized;
 
-	async function handleSubmit() {
-		const response = await fetch('/signin.json');
+	async function handleSubmit(event) {
+		const formData = new FormData(event.target);
+
+		const response = await fetch('/signin.json', {
+			method: "POST",
+			body: formData
+		});
+
 		const data = await response.json();
-		signIn(data);
+		isAuthorized(data);
 	}
 </script>
 
 <div>
 	<form on:submit|preventDefault={handleSubmit}>
-		<div >
+		<div>
 			<label for="name">
 				<span>Name:</span>
 			</label>
-			<input name="name" required autocomplete="off" />
+			<input name="name" required />
 		</div>
 		<div>
 			<label for="password">
@@ -24,7 +30,6 @@
 				type="password"
 				name="password"
 				required
-				autocomplete="off"
 			/>
 		</div>
 		<div>
