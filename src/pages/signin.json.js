@@ -1,10 +1,12 @@
 export const prerender = false;
+import { db, User, eq } from 'astro:db';
 
 export async function POST({ cookies, request }) {
-	request.formData()
-		.then((data) => console.log(`Name: ${data.get('name')}, Password: ${data.get('password')}`));
+	const user = await request.formData().then(async (data) => await db.select().from(User).where(eq(User.name, data.get('name'))));
 	
-	cookies.set('loggedIn', 'true', { httpOnly: true, sameSite: 'lax' });
+	if (user.length) {
+		cookies.set('loggedIn', 'true', { httpOnly: true, sameSite: 'lax' });
+	}
 
 	return new Response(
 		JSON.stringify(cookies.get('loggedIn')),
