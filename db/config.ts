@@ -8,6 +8,15 @@ const User = defineTable({
   }
 });
 
+const CheckIn = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    userId: column.number({ references: () => User.columns.id }),
+    location: column.text(),
+    time: column.date({ default: NOW }),
+  },
+});
+
 export default defineDb({
-  tables: { User },
+  tables: { User, CheckIn },
 });
