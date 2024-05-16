@@ -1,4 +1,4 @@
-import { defineDb, defineTable, column } from 'astro:db';
+import { defineDb, defineTable, column, NOW } from 'astro:db';
 
 // https://astro.build/db/config
 const User = defineTable({
