@@ -4,7 +4,7 @@ import { defineDb, defineTable, column, NOW, sql } from 'astro:db';
 const CheckIn = defineTable({
   columns: {
     location: column.text(),
-    time: column.date({ default: sql`(datetime('now', 'localtime'))` }),
+    time: column.date({ default: NOW }),
   },
 });
 

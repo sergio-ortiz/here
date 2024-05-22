@@ -11,7 +11,7 @@
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ location }),
+			body: JSON.stringify({ location, time: new Date().toLocaleString() }),
 		});
 
 		const data = await response.json();
