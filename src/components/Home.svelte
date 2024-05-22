@@ -21,7 +21,7 @@
 	async function success({ coords: { latitude, longitude } }) {
 		message = 'reverse geocoding';
 
-		const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=17`);
+		const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=18`);
 		const reverseGeocode = await response.json();
 
 		checkIn(reverseGeocode.display_name);
@@ -29,7 +29,7 @@
 
 	onMount(() => {
 		message = 'getting position';
-		navigator.geolocation.getCurrentPosition(success);
+		navigator.geolocation.getCurrentPosition(success, null, { enableHighAccuracy: true });
 	});
 </script>
 
