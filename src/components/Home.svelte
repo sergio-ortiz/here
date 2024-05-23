@@ -6,12 +6,16 @@
 	async function checkIn(location) {
 		message = "checking in";
 		
+		const timestamp = new Date();
+
+		console.log(timestamp.toISOString());
+
 		const response = await fetch('/checkIn.json', {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ location, time: new Date().toLocaleString() }),
+			body: JSON.stringify({ location, timestamp }),
 		});
 
 		const data = await response.json();

@@ -3,9 +3,12 @@ export const prerender = false;
 import { db, CheckIn } from "astro:db";
 
 export async function POST({ request }) {
-	const { location, time } = await request.json();
+	const { location, timestamp } = await request.json();
+	
+	const time = new Date(timestamp);
+	console.log(time.toISOString());
 
-	const query = await db.insert(CheckIn).values({ location, time: new Date(time) }).returning();
+	const query = await db.insert(CheckIn).values({ location, time }).returning();
 	
 	const message = query ? 'success' : 'try again';
 
