@@ -6,9 +6,9 @@
 	async function checkIn(location) {
 		message = "checking in";
 		
-		const timestamp = new Date();
+		const timestamp = Date();
+		console.log(new Date(timestamp).toISOString());
 
-		console.log(timestamp.toISOString());
 
 		const response = await fetch('/checkIn.json', {
 			method: 'POST',
