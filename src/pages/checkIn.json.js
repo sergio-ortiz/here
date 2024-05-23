@@ -9,7 +9,7 @@ export async function POST({ request }) {
 
 	const query = await db.insert(CheckIn).values({ location, time }).returning();
 	
-	const message = query ? 'success' : 'try again';
+	const message = query ? 'success' : 'refresh page';
 
 	return new Response(
 		JSON.stringify({ message }),

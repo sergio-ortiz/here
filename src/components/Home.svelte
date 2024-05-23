@@ -7,8 +7,6 @@
 		message = "checking in";
 		
 		const timestamp = Date();
-		console.log(new Date(timestamp).toISOString());
-
 
 		const response = await fetch('/checkIn.json', {
 			method: 'POST',
