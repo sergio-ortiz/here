@@ -1,0 +1,20 @@
+---
+export const prerender = false;
+export const partial = true;
+import { db, CheckIn } from "astro:db";
+
+const body = await Astro.request.formData();
+const latitude = body.get('latitude');
+const longitude = body.get('longitude');
+const timestamp = body.get('timestamp');
+
+const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=18`);
+const reverseGeocode = await response.json();
+
+const location = reverseGeocode.display_name;
+const time = new Date(Number(timestamp));
+
+const query = await db.insert(CheckIn).values({ location, time }).returning();
+---
+
+<h1>{query && 'success '}<input type="checkbox" checked /></h1>
