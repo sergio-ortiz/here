@@ -1,7 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Home from '../components/Home.svelte';
 ---
+
 <BaseLayout>
-	<Home client:idle />
+	<h1 id="message" aria-busy="true">checking in</h1>
+
+	<form id="myForm" hx-post="/partials/checkin" hx-target="#message" hx-swap="outerHTML">
+		<input type ="hidden" name="latitude" />
+		<input type="hidden" name="longitude" />
+		<input type="hidden" name="timestamp" />
+	</form>
+	
+	<script>
+		function success({ coords: { latitude, longitude }, timestamp }) {
+			const latitudeInput = document.querySelector('input[name=latitude]');
+			const longitudeInput = document.querySelector('input[name=longitude]');
+			const timestampInput = document.querySelector('input[name=timestamp]');
+
+			latitudeInput.value = latitude;
+			longitudeInput.value = longitude;
+			timestampInput.value = timestamp;
+
+			htmx.trigger("#myForm",  "submit");
+		}
+
+		navigator.geolocation.getCurrentPosition(success);
+	</script>
 </BaseLayout>
