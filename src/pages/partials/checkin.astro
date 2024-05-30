@@ -17,4 +17,4 @@ const time = new Date(Number(timestamp));
 const query = await db.insert(CheckIn).values({ location, time }).returning();
 ---
 
-<h1>{query && 'success '}<input type="checkbox" checked /></h1>
+<p>{query && 'Success! '}<!--<input type="checkbox" checked />--></p>
